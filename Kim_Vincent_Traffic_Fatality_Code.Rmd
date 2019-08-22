@@ -1,0 +1,29 @@
+---
+title: "Traffic Fatality Project"
+author: "Vincent Kim"
+output: html_notebook
+---
+
+```{r}
+null = glm(INJ_SEV ~ 1, family = binomial, data=fatal)
+summary(null)
+full = glm(INJ_SEV ~ factor(ROUTE) + factor(MAN_COLL) + factor(LGT_COND)+factor(WEATHERlight)+factor(BODY_TYP)+AGE+factor(DRINKING)+TRAV_SP+factor(L_TYPE), family=binomial, data=fatal)
+summary(full)
+step(null, scope=list(lower=null, upper=full),direction="forward")
+final = glm(INJ_SEV ~ factor(BODY_TYP) + AGE + factor(DRINKING) + TRAV_SP, family = binomial, data=fatal)
+summary(final)
+final2 = glm(INJ_SEV ~ AGE + factor(DRINKING) + TRAV_SP, family = binomial, data=fatal)
+summary(final2)
+anova(final2, final, test="Chisq")
+round(exp(cbind(Estimate=coef(final), confint(final))),2)
+
+boxplot(AGE ~ DRINKING, data=fatal, main="Age vs Drinking Boxplot", xlab = "Drinking?", ylab = "Age", ylim=c(0,100))
+plot(fatal$TRAV_SP, fatal$AGE, groups=fatal$DRINKING, xlab = "Age", ylab = "TRAV_SP", ylim=c(0,150), col=c("red", "blue") )
+plot(fatal$TRAV_SP, fatal$AGE, groups=fatal$INJ_SEV, xlab = "Age", ylab = "TRAV_SP", ylim=c(0,150), col=c("red", "blue") )
+boxplot(TRAV_SP ~ DRINKING, data=fatal, main="Drinking vs Travelling Speed", xlab = "Drinking?", ylab = "Travelling speed", ylim=c(0,150))
+counts = table(fatal$INJ_SEV, fatal$DRINKING)
+barplot(counts, col=c("blue", "red"))
+
+```
+
+
