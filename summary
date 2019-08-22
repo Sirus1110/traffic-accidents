@@ -1,0 +1,1 @@
+In this project, we analyze the effects of various factors that correlate to traffic fatalities in the United States. Logistic regression is used, with the y variable being Fatality Rate (coded 0 for Survived, 1 for Fatality). 
