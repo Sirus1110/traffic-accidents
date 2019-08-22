@@ -1,1 +1,8 @@
-In this project, we analyze the effects of various factors that correlate to traffic fatalities in the United States. Logistic regression is used, with the y variable being Fatality Rate (coded 0 for Survived, 1 for Fatality). 
+The traffic fatalities dataset was gathered from the Fatality Analysis Reporting System (FARS).
+Logistic regression is used to study the INJ_SEV variable, since it is categorical with two levels: Survived, Died.
+In the initial model, 9 predictors were analyzed: Route (Local Street, Highway), Manner of Collision (Front, Side, Rear), Light Condition (Light, Dark), Weather (Light, Moderate, Severe), Body Type of Cars (Compact, Lorry), Drinking (Yes, No), License (Yes, No), Travel Speed, Age.
+To determine which predictors should be selected into the final model, the stepwise procedure was implemented. 
+The Body Type variable was in the "initial-final" model by the stepwise procedure, despite being exceedingly non-significant. Thus, we wanted to analyze that variable further.
+Using the ANOVA function, two models were created and compared. One with Body Type variable included, and the other model without it.
+With the ANOVA comparison analysis, the results were statistically significant so it was concluded that Body Type should be included in final model.
+Thus, the final model: INJ_SEV ~ Body Type + Age + Drinking + Travel Speed. (With Age, Drinking, and Travel Speed showing significant effects).
